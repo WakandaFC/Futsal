@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wakanda FC | Elite Futsal Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            --primary-gold: #D4AF37;
+            --gold-light: #FFD700;
+            --gold-dark: #B8941E;
+            --bg-black: #0A0A0A;
+            --bg-dark: #111111;
+            --bg-card: rgba(20, 20, 20, 0.8);
+            --text-white: #FFFFFF;
+            --text-gray: #CCCCCC;
+            --glow-gold: 0 0 20px rgba(212, 175, 55, 0.5);
+            --glow-gold-strong: 0 0 40px rgba(212, 175, 55, 0.8);
+        }
+
+        /* ==================== GLOBAL RESET ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ==================== FLOATING PARTICLES ==================== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #d4af37 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: auto;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.6rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.06);
+            border-radius: 0 0 12px 12px;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 54px;
+            width: auto;
+            transition: height 0.3s ease;
+        }
+
+        nav.scrolled .nav-logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
+
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 8px;
+            text-shadow: var(--glow-gold-strong);
+            animation: heroGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.9));
+            }
+        }
+
+        .hero-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+            color: var(--bg-black);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: var(--glow-gold-strong);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 1);
+        }
+
+        /* ==================== SECTION STYLES ==================== */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 4px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            letter-spacing: 2px;
+        }
+
+        /* ==================== ABOUT SECTION ==================== */
+        #about {
+            background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-dark) 100%);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text-gray);
+            background: rgba(212, 175, 55, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--glow-gold);
+        }
+
+        .about-content strong {
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        /* ==================== PLAYERS SECTION ==================== */
+        #players {
+            background: var(--bg-black);
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .player-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .player-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .player-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: var(--glow-gold-strong);
+        }
+
+        .player-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .player-card:hover .player-image {
+            filter: grayscale(0%);
+        }
+
+        .player-info {
+            padding: 1.5rem;
+        }
+
+        .player-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .player-position {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .player-description {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ==================== TROPHIES SECTION ==================== */
+        #trophies {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #000000 100%);
+            position: relative;
+            padding: 8rem 2rem;
+        }
+
+        #trophies::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .trophies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .trophy-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trophy-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .trophy-card:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .trophy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-gold-strong);
+            border-color: var(--gold-light);
+        }
+
+        .trophy-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(var(--glow-gold));
+        }
+
+        .trophy-icon svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--gold-light);
+            filter: drop-shadow(var(--glow-gold));
+        }
+
+        .trophy-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .trophy-year {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* ==================== ACHIEVEMENTS SECTION ==================== */
+        #achievements {
+            background: var(--bg-black);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .achievement-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .achievement-card:hover::after {
+            left: 100%;
+        }
+
+        .achievement-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+            box-shadow: var(--glow-gold);
+        }
+
+        .achievement-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-icon svg {
+            width: 56px;
+            height: 56px;
+            fill: var(--gold-light);
+            filter: drop-shadow(var(--glow-gold));
+        }
+
+        .player-image-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(30, 30, 30, 1) 0%, rgba(20, 20, 20, 1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-image-placeholder svg {
+            width: 120px;
+            height: 120px;
+            opacity: 0.3;
+            fill: var(--text-gray);
+        }
+
+        .achievement-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .achievement-player {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* ==================== TIMELINE SECTION ==================== */
+        #timeline {
+            background: linear-gradient(180deg, var(--bg-black) 0%, var(--bg-dark) 100%);
+            position: relative;
+            padding: 8rem 2rem;
+            overflow: hidden;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 2rem 0;
+        }
+
+        /* The vertical line */
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        /* The progress fill line */
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 0%;
+            background: linear-gradient(180deg, var(--gold-dark), var(--gold-light));
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            border-radius: 2px;
+            z-index: 2;
+            transition: height 0.1s linear;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 6rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-card {
+            width: 45%;
+            background: var(--bg-card);
+            background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateY(50px);
+            z-index: 3;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, transparent 100%);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-card {
+            margin-right: auto;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-card {
+            margin-left: auto;
+            text-align: left;
+        }
+
+        .timeline-item.reveal .timeline-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item.reveal .timeline-node {
+            border-color: rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .timeline-card.active {
+            transform: translateY(0) scale(1.03);
+            border-color: var(--primary-gold);
+            box-shadow: var(--glow-gold);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            border-color: var(--gold-light);
+            box-shadow: var(--glow-gold-strong);
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .timeline-event {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+
+        .timeline-node {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--bg-black);
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            z-index: 4;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-node.active {
+            background: var(--gold-light);
+            border-color: var(--text-white);
+            box-shadow: 0 0 20px var(--gold-light), 0 0 40px var(--gold-light);
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+
+            .timeline-line,
+            .timeline-progress {
+                left: 30px;
+            }
+
+            .timeline-node {
+                left: 30px;
+            }
+
+            .timeline-card {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                text-align: left !important;
+            }
+
+            .timeline-year {
+                font-size: 2rem;
+            }
+        }
+
+        /* ==================== GALLERY SECTION ==================== */
+        #gallery {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-black) 50%, var(--bg-dark) 100%);
+            position: relative;
+            padding: 8rem 2rem;
+            overflow: hidden;
+        }
+
+        #gallery::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        #gallery::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.02) 50%, transparent 100%);
+            animation: shimmerBackground 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmerBackground {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translateX(-50px);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateX(50px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.15) rotate(5deg);
+                opacity: 0.8;
+            }
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-eyebrow {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #d4af37 0%, #f4e5a8 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-weight: 700;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .gallery-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(48px, 7vw, 86px);
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .gallery-subtitle {
+            font-size: 18px;
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 40px auto 0;
+            line-height: 1.6;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            color: #a0a0a0;
+            padding: 14px 32px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            color: #d4af37;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-color: #d4af37;
+            color: #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            grid-auto-flow: dense;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(12, 1fr);
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            background: #1a1a1a;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(10deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        /* Dynamic Grid Sizes */
+        .gallery-item:nth-child(1) {
+            grid-column: span 5;
+            grid-row: span 2;
+            animation-delay: 0.1s;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: span 4;
+            grid-row: span 1;
+            animation-delay: 0.15s;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: span 3;
+            grid-row: span 1;
+            animation-delay: 0.2s;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 4;
+            grid-row: span 1;
+            animation-delay: 0.25s;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 3;
+            grid-row: span 2;
+            animation-delay: 0.3s;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 5;
+            grid-row: span 1;
+            animation-delay: 0.35s;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-column: span 4;
+            grid-row: span 2;
+            animation-delay: 0.4s;
+        }
+
+        .gallery-item:nth-child(8) {
+            grid-column: span 5;
+            grid-row: span 1;
+            animation-delay: 0.45s;
+        }
+
+        .gallery-item:nth-child(9) {
+            grid-column: span 3;
+            grid-row: span 1;
+            animation-delay: 0.5s;
+        }
+
+        @media (max-width: 767px) {
+            .gallery-item {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg,
+                    #d4af37 0%,
+                    #f4e5a8 25%,
+                    #d4af37 50%,
+                    #c9a64a 75%,
+                    #d4af37 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+            border-radius: 14px;
+            filter: blur(8px);
+            background-size: 200% 200%;
+            animation: borderGlow 3s ease infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Spotlight effect */
+        .gallery-item .spotlight {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .gallery-item:hover .spotlight {
+            opacity: 1;
+            animation: spotlightMove 2s ease-in-out infinite;
+        }
+
+        @keyframes spotlightMove {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(10%, 10%);
+            }
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.5s ease,
+                opacity 0.5s ease;
+            filter: brightness(0.8) contrast(1.15) saturate(1.1);
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.12) translateZ(20px);
+            filter: brightness(1.05) contrast(1.25) saturate(1.2);
+        }
+
+        .gallery-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 3;
+        }
+
+        .gallery-item:hover .gallery-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
+            position: relative;
+        }
+
+        .gallery-category::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 2px;
+            background: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        .gallery-item:hover .gallery-category {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            font-size: 19px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.9);
+            line-height: 1.4;
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        #contact {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-black) 100%);
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(212, 175, 55, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            color: var(--text-white);
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: var(--glow-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+            color: var(--bg-black);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-gold-strong);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--bg-black);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-text {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .instagram-link:hover {
+            color: #FFD700;
+        }
+
+        .instagram-icon {
+            width: 28px;
+            height: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-link:hover .instagram-icon {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) brightness(1.2);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 1024px) {
+
+            .players-grid,
+            .trophies-container,
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 4rem;
+                letter-spacing: 4px;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                padding: 2rem 0;
+                transform: translateY(-150%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.4s ease;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+
+            .menu-toggle .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                background-color: var(--primary-gold);
+                transition: all 0.3s ease;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo img {
+                height: 42px;
+            }
+
+            nav.scrolled .nav-logo img {
+                height: 32px;
+            }
+
+            nav {
+                border-radius: 0 0 12px 12px;
+            }
+
+            .players-grid,
+            .trophies-container,
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .player-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .about-content {
+                padding: 2rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            .submit-button {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .timeline-line,
+            .timeline-progress {
+                left: 20px;
+            }
+
+            .timeline-node {
+                left: 20px;
+                transform: translate(-50%, -50%);
+            }
+
+            .timeline-card {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+                text-align: left !important;
+                padding: 1.5rem;
+            }
+
+            .gallery-title {
+                font-size: 42px;
+            }
+
+            .filter-tabs {
+                gap: 15px;
+            }
+
+            .filter-btn {
+                padding: 12px 24px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav>
+        <div class="container">
+            <a href="#hero" class="nav-logo">
+                <img src="./images/Logo.png" alt="Wakanda FC Logo">
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#players">Squad</a></li>
+                <li><a href="#trophies">Trophies</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero">
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <h1>WAKANDA FC</h1>
+            <h2>Wakanda Forever</h2>
+            <p>Based in Sri Lanka | ESTD 2023</p>
+            <a href="#about" class="cta-button">Enter the Kingdom</a>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about">
+        <h2 class="section-title">About Us</h2>
+        <p class="section-subtitle">The Elite Warriors of Futsal</p>
+        <div class="about-content">
+            We are <strong>Wakanda FC</strong>, a futsal club forged in the heart of Sri Lanka with a vision of
+            excellence, discipline, and unwavering unity. Founded in 2023, we represent more than just a team—we are a
+            brotherhood bound by fearlessness and elite performance. Every match is a battle, every player a warrior. We
+            don't just compete; we <strong>dominate</strong>. With precision, power, and relentless determination, we've
+            carved our legacy in the futsal arena. Our motto is simple: <strong>Wakanda Forever</strong>—united we rise,
+            united we conquer.
+        </div>
+    </section>
+
+    <!-- ==================== PLAYERS SECTION ==================== -->
+    <section id="players">
+        <h2 class="section-title">Our Warriors</h2>
+
+        <h2 class="section-title" style="margin-top: 2rem;">Manager</h2>
+        <div style="display: flex; justify-content: center; margin-bottom: 4rem;">
+            <div class="player-card" style="width: 100%; max-width: 400px;">
+                <img src="./images/Farhan.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#1</div>
+                    <h3 class="player-name">Farhan Hussain</h3>
+                    <p class="player-position">Manager</p>
+                    <p class="player-description">Experienced figure who brings tactical awareness and structure to the
+                        squad. Sets the standard on and off the pitch with meticulous preparation.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Our Warriors</h2>
+        <p class="section-subtitle">The Elite Squad</p>
+        <div class="players-grid">
+            <!-- Player Cards -->
+            <div class="player-card">
+                <img src="./images/Yahya.png" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#66</div>
+                    <h3 class="player-name">Yahya Jawazim</h3>
+                    <p class="player-position">Defender</p>
+                    <p class="player-description">Disciplined defender with strong tackling, sharp positioning, and
+                        natural leadership. Commands the backline with composure and consistency.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Shahir.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#9</div>
+                    <h3 class="player-name">Shahir Taiyoob</h3>
+                    <p class="player-position">Striker</p>
+                    <p class="player-description">Clinical finisher with sharp instincts in front of goal. Combines pace
+                        with intelligent movement to create and convert chances.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Aqeel.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#17</div>
+                    <h3 class="player-name">Aqeel Ashraf</h3>
+                    <p class="player-position">Defender</p>
+                    <p class="player-description">Tenacious defender with a strong work rate and excellent positioning.
+                        Rarely caught out and always provides a solid foundation at the back.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Yaqub.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#11</div>
+                    <h3 class="player-name">Yaqub Nawshad</h3>
+                    <p class="player-position">Defender</p>
+                    <p class="player-description">Versatile defender with excellent game-reading ability and composure
+                        under pressure. Strong in one-on-one duels and comfortable on the ball.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Luqman.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#7</div>
+                    <h3 class="player-name">Luqman Shihan</h3>
+                    <p class="player-position">Attacker</p>
+                    <p class="player-description">Quick and direct attacker who thrives in wide areas. Uses pace and
+                        close control to stretch defences and deliver dangerous final balls.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/UmarR.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#19</div>
+                    <h3 class="player-name">Umar Rizly</h3>
+                    <p class="player-position">Attacker</p>
+                    <p class="player-description">Dynamic forward with good ball retention and creative passing. Brings
+                        energy and unpredictability to the attacking third.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Looth.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#69</div>
+                    <h3 class="player-name">Looth</h3>
+                    <p class="player-position">Attacker</p>
+                    <p class="player-description">Energetic attacker with a keen eye for goal. Works hard off the ball
+                        and contributes with pressing and intelligent runs.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <div class="player-image-placeholder">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="player-info">
+                    <div class="player-number">#6</div>
+                    <h3 class="player-name">Saajid</h3>
+                    <p class="player-position">Defender</p>
+                    <p class="player-description">Tough-tackling defender who brings physicality and commitment. Strong
+                        in the air and dependable when the team needs to hold their shape.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/Zain.png" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#5</div>
+                    <h3 class="player-name">Zain Rushdy</h3>
+                    <p class="player-position">Defender</p>
+                    <p class="player-description">Reliable at the back with solid aerial presence and well-timed
+                        challenges. Reads the game well and breaks up opposition attacks effectively.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <img src="./images/UmarH.jpeg" alt="Player" class="player-image">
+                <div class="player-info">
+                    <div class="player-number">#77</div>
+                    <h3 class="player-name">Umar Hunais</h3>
+                    <p class="player-position">Goalkeeper</p>
+                    <p class="player-description">Calm and composed shot-stopper with excellent reflexes and good
+                        distribution. Commands the box with authority and organises the defence.</p>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <div class="player-image-placeholder">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <div class="player-info">
+                    <div class="player-number">#1</div>
+                    <h3 class="player-name">Afly Mohammed</h3>
+                    <p class="player-position">Goalkeeper</p>
+                    <p class="player-description">Agile goalkeeper with quick reactions and strong shot-stopping
+                        ability. Comfortable with the ball at his feet and decisive in one-on-one situations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TROPHIES SECTION ==================== -->
+    <section id="trophies">
+        <h2 class="section-title">Hall of Glory</h2>
+        <p class="section-subtitle">Champions Legacy</p>
+        <div class="trophies-container">
+            <div class="trophy-card">
+                <div class="trophy-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
+                    </svg></div>
+                <h3 class="trophy-title">YFL ELITE CUP CHAMPIONS</h3>
+                <p class="trophy-year">2025</p>
+            </div>
+
+            <div class="trophy-card">
+                <div class="trophy-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 7.13l.97 2.29.47 1.11 1.2.1 2.47.21-1.88 1.63-.91.79.27 1.18.56 2.41-2.12-1.28-1.03-.64-1.03.64-2.12 1.28.56-2.41.27-1.18-.91-.79-1.88-1.63 2.47-.21 1.2-.1.47-1.11L12 7.13M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z" />
+                    </svg></div>
+                <h3 class="trophy-title">YFL SEASON 2 RUNNERS-UP</h3>
+                <p class="trophy-year">2025</p>
+            </div>
+
+            <div class="trophy-card">
+                <div class="trophy-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
+                    </svg></div>
+                <h3 class="trophy-title">YFL SEASON 2 CHAMPIONS</h3>
+                <p class="trophy-year">2024</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TIMELINE SECTION ==================== -->
+    <section id="timeline">
+        <h2 class="section-title">Wakanda Legacy</h2>
+        <p class="section-subtitle">Our Journey Through the Years</p>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress"></div>
+
+            <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2023</span>
+                    <p class="timeline-event">Founded</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2024</span>
+                    <p class="timeline-event">YFL Season 2 Champions</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2025</span>
+                    <p class="timeline-event">YFL Season 4 Runners-Up</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2025</span>
+                    <p class="timeline-event">YFL Elite Cup Champions</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-node"></div>
+                <div class="timeline-card">
+                    <span class="timeline-year">2026</span>
+                    <p class="timeline-event">Still writing our story...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ACHIEVEMENTS SECTION ==================== -->
+    <section id="achievements">
+        <h2 class="section-title">Individual Honors</h2>
+        <p class="section-subtitle">Excellence Recognized</p>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 7.13l.97 2.29.47 1.11 1.2.1 2.47.21-1.88 1.63-.91.79.27 1.18.56 2.41-2.12-1.28-1.03-.64-1.03.64-2.12 1.28.56-2.41.27-1.18-.91-.79-1.88-1.63 2.47-.21 1.2-.1.47-1.11L12 7.13M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z" />
+                    </svg></div>
+                <h3 class="achievement-title">YFL Elite Cup MVP</h3>
+                <p class="achievement-player">Yaqub Nawshad</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                    </svg></div>
+                <h3 class="achievement-title">YFL Season 2 & Season 4 Best Defender</h3>
+                <p class="achievement-player">Yahya Jawazim</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z" />
+                    </svg></div>
+                <h3 class="achievement-title">YFL Elite Cup & Season 2 Best Goalkeeper</h3>
+                <p class="achievement-player">Umar Hunais</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY SECTION (COMMENTED OUT) ==================== -->
+    <!--
+    <section id="gallery">
+        <div class="gallery-header">
+            <div class="gallery-eyebrow">Captured Excellence</div>
+            <h2 class="gallery-title">Wakanda Legacy</h2>
+            <p class="gallery-subtitle">Experience the passion, glory, and spirit that define Club Wakanda FC through our most iconic moments</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="matches">Matches</button>
+            <button class="filter-btn" data-filter="fans">Fans</button>
+            <button class="filter-btn" data-filter="training">Training</button>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="matches">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&h=1400&fit=crop&q=85" alt="Match moment">
+                <div class="gallery-content">
+                    <div class="gallery-category">Matches</div>
+                    <div class="gallery-caption">Victory Against Rivals</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="fans">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1000&h=800&fit=crop&q=85" alt="Fans celebrating">
+                <div class="gallery-content">
+                    <div class="gallery-category">Fans</div>
+                    <div class="gallery-caption">The Wakanda Faithful</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="training">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=900&h=800&fit=crop&q=85" alt="Training session">
+                <div class="gallery-content">
+                    <div class="gallery-category">Training</div>
+                    <div class="gallery-caption">Elite Preparation</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="matches">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1000&h=800&fit=crop&q=85" alt="Goal celebration">
+                <div class="gallery-content">
+                    <div class="gallery-category">Matches</div>
+                    <div class="gallery-caption">Golden Goal Moment</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="fans">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=900&h=1400&fit=crop&q=85" alt="Stadium atmosphere">
+                <div class="gallery-content">
+                    <div class="gallery-category">Fans</div>
+                    <div class="gallery-caption">Fortress Wakanda</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="matches">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200&h=800&fit=crop&q=85" alt="Team celebration">
+                <div class="gallery-content">
+                    <div class="gallery-category">Matches</div>
+                    <div class="gallery-caption">Champions Together</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="training">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=1000&h=1400&fit=crop&q=85" alt="Tactical training">
+                <div class="gallery-content">
+                    <div class="gallery-category">Training</div>
+                    <div class="gallery-caption">Tactical Mastery</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="matches">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=1200&h=800&fit=crop&q=85" alt="Action shot">
+                <div class="gallery-content">
+                    <div class="gallery-category">Matches</div>
+                    <div class="gallery-caption">Pure Determination</div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="fans">
+                <div class="spotlight"></div>
+                <img class="gallery-image" src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=900&h=800&fit=crop&q=85" alt="Fan support">
+                <div class="gallery-content">
+                    <div class="gallery-category">Fans</div>
+                    <div class="gallery-caption">Unbreakable Bond</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact">
+        <h2 class="section-title">Join the Kingdom</h2>
+        <p class="section-subtitle">Get in Touch</p>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">SEND MESSAGE</button>
+        </form>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-logo">WAKANDA FC</div>
+        <p class="footer-text">© 2023 Wakanda FC | Wakanda Forever</p>
+        <a href="https://www.instagram.com/wakandafc2024/" target="_blank" class="instagram-link">
+            <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="ig-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFD700" />
+                        <stop offset="100%" stop-color="#B89600" />
+                    </linearGradient>
+                </defs>
+                <path
+                    d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.4 5.6 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.6 18.4 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25zM12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"
+                    fill="url(#ig-grad)" />
+            </svg>
+            Follow us on Instagram
+        </a>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== PARTICLE ANIMATION (HERO) ====================
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.1 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ==================== FLOATING PARTICLES SYSTEM ====================
+        function createFloatingParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.body.appendChild(particlesContainer);
+
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // ==================== MAGNETIC HOVER EFFECT ====================
+        function initMagneticHover() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const deltaX = (x - centerX) / centerX;
+                    const deltaY = (y - centerY) / centerY;
+
+                    const rotateX = deltaY * -5;
+                    const rotateY = deltaX * 5;
+
+                    item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+                    // Move spotlight
+                    const spotlight = item.querySelector('.spotlight');
+                    if (spotlight) {
+                        spotlight.style.transform = `translate(${deltaX * 20}%, ${deltaY * 20}%)`;
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    const spotlight = item.querySelector('.spotlight');
+                    if (spotlight) {
+                        spotlight.style.transform = 'translate(0, 0)';
+                    }
+                });
+            });
+        }
+
+        // ==================== GALLERY FILTER FUNCTIONALITY ====================
+        function initFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        item.style.animation = 'none';
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(30px)';
+                    });
+
+                    setTimeout(() => {
+                        let visibleIndex = 0;
+                        galleryItems.forEach((item) => {
+                            const category = item.getAttribute('data-category');
+
+                            if (filterValue === 'all' || category === filterValue) {
+                                item.classList.remove('hidden');
+                                setTimeout(() => {
+                                    item.style.animation = `fadeInUp 0.6s ease forwards`;
+                                    item.style.animationDelay = `${visibleIndex * 0.08}s`;
+                                }, 50);
+                                visibleIndex++;
+                            } else {
+                                item.classList.add('hidden');
+                            }
+                        });
+                    }, 300);
+                });
+            });
+        }
+
+        // ==================== RIPPLE EFFECT ON GALLERY CLICK ====================
+        function initClickEffects() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const ripple = document.createElement('div');
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    ripple.style.cssText = `
+                        position: absolute;
+                        left: ${x}px;
+                        top: ${y}px;
+                        width: 0;
+                        height: 0;
+                        border-radius: 50%;
+                        background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+                        transform: translate(-50%, -50%);
+                        animation: ripple 0.8s ease-out;
+                        pointer-events: none;
+                        z-index: 10;
+                    `;
+
+                    item.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 800);
+                });
+            });
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        width: 500px;
+                        height: 500px;
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // ==================== SCROLL REVEAL ANIMATIONS ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all player cards
+        document.querySelectorAll('.player-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // ==================== FORM SUBMISSION ====================
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const whatsappMessage = `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            window.location.href = `https://wa.me/94773964734?text=${encodedMessage}`;
+        });
+
+        // ==================== TEXTAREA TYPING ANIMATION ====================
+        const messageEl = document.getElementById('message');
+        if (messageEl) {
+            const placeholderMessages = [
+                "Tell us what you think",
+                "Any improvements?",
+                "Want to join us?"
+            ];
+
+            let messageIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingTimeout;
+            let isFocused = false;
+
+            function typePlaceholder() {
+                // Stop animation if focused or has text
+                if (isFocused || messageEl.value !== "") {
+                    messageEl.setAttribute('placeholder', '');
+                    return;
+                }
+
+                const currentMessage = placeholderMessages[messageIndex];
+
+                if (isDeleting) {
+                    messageEl.setAttribute('placeholder', currentMessage.substring(0, charIndex - 1));
+                    charIndex--;
+                } else {
+                    messageEl.setAttribute('placeholder', currentMessage.substring(0, charIndex + 1));
+                    charIndex++;
+                }
+
+                let speed = isDeleting ? 40 : 70; // 40ms deleting, 70ms typing
+
+                if (!isDeleting && charIndex === currentMessage.length) {
+                    speed = 2000; // Pause at end of sentence
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    messageIndex = (messageIndex + 1) % placeholderMessages.length;
+                    speed = 500; // Pause before new sentence
+                }
+
+                typingTimeout = setTimeout(typePlaceholder, speed);
+            }
+
+            messageEl.addEventListener('focus', () => {
+                isFocused = true;
+                clearTimeout(typingTimeout);
+                messageEl.setAttribute('placeholder', '');
+            });
+
+            messageEl.addEventListener('blur', () => {
+                isFocused = false;
+                if (messageEl.value === "") {
+                    charIndex = 0;
+                    isDeleting = false;
+                    typePlaceholder();
+                }
+            });
+
+            messageEl.addEventListener('input', () => {
+                if (messageEl.value !== "") {
+                    clearTimeout(typingTimeout);
+                    messageEl.setAttribute('placeholder', '');
+                }
+            });
+
+            // Start the loop initially
+            typePlaceholder();
+        }
+
+        // ==================== SMOOTH SCROLL WITH OFFSET ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const offset = 80;
+                const targetPosition = target.offsetTop - offset;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // ==================== PARALLAX EFFECT ON HERO + NAVBAR SCROLL ====================
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            const navbar = document.querySelector('nav');
+
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${currentScroll * 0.5}px)`;
+                heroContent.style.opacity = 1 - (currentScroll / 600);
+            }
+
+            // Navbar shrink based on scroll direction
+            if (currentScroll > lastScroll && currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+
+            // Timeline progress and active states
+            const timeline = document.querySelector('.timeline-container');
+            if (timeline) {
+                const timelineRect = timeline.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // Calculate how much of the timeline is scrolled
+                const scrollStart = windowHeight * 0.8;
+                const totalHeight = timelineRect.height;
+                const scrolledDistance = Math.max(0, scrollStart - timelineRect.top);
+                const progress = Math.min(100, (scrolledDistance / totalHeight) * 100);
+
+                // Progress Line Fill
+                const progressLine = document.querySelector('.timeline-progress');
+                if (progressLine) {
+                    progressLine.style.height = `${progress}%`;
+                }
+
+                // Staggered reveal and active states
+                const items = document.querySelectorAll('.timeline-item');
+                items.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const card = item.querySelector('.timeline-card');
+                    const node = item.querySelector('.timeline-node');
+
+                    // One-by-one reveal logic: trigger when item enters bottom 20% of viewport
+                    if (rect.top < windowHeight * 0.8) {
+                        item.classList.add('reveal');
+                    }
+
+                    // Active pulse state (when in focus)
+                    if (rect.top < windowHeight * 0.55 && rect.bottom > windowHeight * 0.45) {
+                        card.classList.add('active');
+                        node.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                        node.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // ==================== INITIALIZE ALL FEATURES ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingParticles();
+            initMagneticHover();
+            initFilters();
+            initClickEffects();
+
+            // ==================== MOBILE MENU ====================
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+
+            if (mobileMenu) {
+                mobileMenu.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        navLinks.classList.remove('active');
+                    });
+                });
+            }
+
+            // Init reveal check on load
+            const scrolled = window.pageYOffset;
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    item.classList.add('reveal');
+                }
+            });
+
+            console.log('WAKANDA FC - Website Loaded Successfully!');
+            console.log('Wakanda Forever!');
+        });
+    </script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+
+</body>
+
+</html>
